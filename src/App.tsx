@@ -27,7 +27,7 @@ function Language({lang,setLang}:{lang:Lang,setLang:(l:Lang)=>void}){
 function Scene(){
   return(<>
 <StarsEnhanced
-  count={7000}      // ещё больше звёзд
+  count={14000}      // ещё больше звёзд
   radius={200}      // «глубина» купола
   intensity={1.1}   // общая яркость
   period={30}       // цикл мягкого затухания
