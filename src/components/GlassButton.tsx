@@ -1,0 +1,61 @@
+import React from 'react'
+import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
+
+type Props = { label: string; to: string; delay?: number }
+
+export default function GlassButton({ label, to, delay = 0 }: Props) {
+  const nav = useNavigate()
+  const [flying, setFlying] = React.useState(false)
+
+  return (
+    <motion.button
+      initial={{ opacity: 0, y: 20, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.6, delay }}
+      onClick={() => {
+        setFlying(true)
+        setTimeout(() => nav(to), 420)
+      }}
+      className="relative w-56 h-14 rounded-2xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-xl text-white font-medium tracking-wide"
+      style={{ WebkitBackdropFilter: 'blur(20px)' as any }}
+    >
+      {/* glass layers */}
+      <span className="absolute inset-0 bg-gradient-to-br from-white/12 to-white/5" />
+      <span className="absolute inset-0 rounded-2xl ring-1 ring-white/20" />
+
+      {/* FULL-COVER sweep line */}
+      <motion.span
+        className="absolute inset-y-0 left-0 rounded-2xl pointer-events-none mix-blend-screen"
+        style={{
+          width: '140%',
+          background:
+            'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 40%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.18) 60%, rgba(255,255,255,0) 100%)',
+        }}
+        animate={{ x: ['-120%', '110%'] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: 'linear' }}
+      />
+
+      {/* Spark at the front of the sweep */}
+      <motion.span
+        className="absolute top-1/2 -translate-y-1/2 h-6 w-6 rounded-full pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 70%)',
+          filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.9)) drop-shadow(0 0 24px rgba(255,220,240,0.6))',
+        }}
+        animate={{ x: ['-10%', '110%'], opacity: [0, 1, 0] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: 'linear' }}
+      />
+
+      {/* Label (flies right on click) */}
+      <motion.span
+        className="relative z-10"
+        animate={flying ? { x: 600, opacity: 0.3, rotate: -8 } : { x: 0, opacity: 1, rotate: 0 }}
+        transition={{ type: 'spring', stiffness: 120, damping: 16 }}
+      >
+        {label}
+      </motion.span>
+    </motion.button>
+  )
+}
