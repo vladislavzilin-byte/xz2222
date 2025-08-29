@@ -1,10 +1,10 @@
-# IZ Hair Trend — 3D Polymer UI
+# IZ HAIR TREND — Stars Edition (Full)
 
-- 3D center photo with shader displacement (pseudo-3D)
-- Soft intro shards + depth, pointer & scroll parallax
-- 4 polymer glass buttons; fly-right on click → navigate
-- Languages: Lithuanian / English / Russian
-- Pages: Portfolio, Shop, Training, Contacts
+- Black background + enhanced starry sky (chaotic twinkle, sequential fade-out)
+- Polymer buttons with full sweep (no spark), 30% slower
+- No center title/triangles/photo
+- Languages: LT / EN / RU, pages via React Router
+- Stack: Vite + React + TypeScript + Tailwind + react-three-fiber + drei + postprocessing
 
 ## Dev
 npm i
