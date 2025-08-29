@@ -13,7 +13,7 @@ type Props = {
 }
 
 export default function StarsEnhanced({
-  count = 10000,
+  count = 12000,
   radius = 220,
   intensity = 1.1,
   sizeMin = 0.55,
