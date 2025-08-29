@@ -24,7 +24,7 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
       <span className="absolute inset-0 bg-gradient-to-br from-white/12 to-white/5" />
       <span className="absolute inset-0 rounded-2xl ring-1 ring-white/20" />
 
-      {/* FULL-COVER sweep line */}
+      {/* FULL-COVER sweep line (30% slower) */}
       <motion.span
         className="absolute inset-y-0 left-0 rounded-2xl pointer-events-none mix-blend-screen"
         style={{
@@ -33,19 +33,7 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
             'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 40%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.18) 60%, rgba(255,255,255,0) 100%)',
         }}
         animate={{ x: ['-120%', '110%'] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: 'linear' }}
-      />
-
-      {/* Spark at the front of the sweep */}
-      <motion.span
-        className="absolute top-1/2 -translate-y-1/2 h-6 w-6 rounded-full pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 70%)',
-          filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.9)) drop-shadow(0 0 24px rgba(255,220,240,0.6))',
-        }}
-        animate={{ x: ['-10%', '110%'], opacity: [0, 1, 0] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 3.12, repeat: Infinity, ease: 'linear' }} // 2.4s * 1.3 ≈ 3.12s
       />
 
       {/* Label (flies right on click) */}
