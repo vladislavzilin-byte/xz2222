@@ -1,10 +1,13 @@
-# IZ HAIR TREND — Stars Edition (Full)
+# IZ HAIR TREND — Stars (variable sizes + fast regions)
 
-- Black background + enhanced starry sky (chaotic twinkle, sequential fade-out)
+- Black background + starry sky:
+  - variable star sizes (many small, few large, rare giants)
+  - region-based twinkle (some areas ~2x faster)
+  - subtle color temperature variation
+  - gentle partial fade, natural look
 - Polymer buttons with full sweep (no spark), 30% slower
 - No center title/triangles/photo
-- Languages: LT / EN / RU, pages via React Router
-- Stack: Vite + React + TypeScript + Tailwind + react-three-fiber + drei + postprocessing
+- Languages: LT / EN / RU, pages: Portfolio / Shop / Training / Contacts
 
 ## Dev
 npm i
