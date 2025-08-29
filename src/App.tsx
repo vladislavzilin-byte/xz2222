@@ -26,13 +26,15 @@ function Language({lang,setLang}:{lang:Lang,setLang:(l:Lang)=>void}){
 }
 function Scene(){
   return(<>
-   <StarsEnhanced
-  count={6000}
-  radius={200}
-  intensity={1.15}
-  period={34}
-  bandBias={0.65}
-  bandWidth={0.22}
+<StarsEnhanced
+  count={7000}      // ещё больше звёзд
+  radius={200}      // «глубина» купола
+  intensity={1.1}   // общая яркость
+  period={30}       // цикл мягкого затухания
+  sizeMin={0.6}     // минимальный размер
+  sizeMax={6.5}     // максимальный размер (редкие «гиганты»)
+  giantChance={0.04}// шанс больших звёзд
+  fastRatio={0.5}   // доля областей с 2x скоростью
 />
     <ambientLight intensity={0.35}/>
     <directionalLight intensity={0.8} position={[4,6,6]}/>
