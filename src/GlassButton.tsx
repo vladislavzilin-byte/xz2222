@@ -33,7 +33,7 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
             'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 40%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.18) 60%, rgba(255,255,255,0) 100%)',
         }}
         animate={{ x: ['-120%', '110%'] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 4.4, repeat: Infinity, ease: 'linear' }}
       />
 
       {/* Spark at the front of the sweep */}
