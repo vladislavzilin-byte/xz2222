@@ -13,16 +13,16 @@ type Props = {
 }
 
 export default function StarsEnhanced({
-  count = 8000,        // больше звёзд
+  count = 10000,
   radius = 220,
   intensity = 1.1,
   sizeMin = 0.55,
-  sizeMax = 5.8,
+  sizeMax = 6.8,
   giantChance = 0.045,
-  fastRatio = 0.1
+  fastRatio = 0.5
 }: Props) {
   const uniforms = React.useMemo(() => ({
-    uTime:  { value: 0.99 },
+    uTime:  { value: 0 },
     uAlpha: { value: intensity }
   }), [intensity])
 
@@ -48,16 +48,14 @@ export default function StarsEnhanced({
       positions[i*3+1] = y
       positions[i*3+2] = z
 
-      // variable sizes + редкие «гиганты»
+      // sizes: many small, few large, rare giants
       let t = randPow(2.6)
       let s = THREE.MathUtils.lerp(sizeMin, sizeMax, t)
       if (Math.random() < giantChance) s += 2.0 * Math.random() + 1.0
       sizes[i] = s
 
-      // индивидуальная фаза
       phases[i] = Math.random()
 
-      // цветовая температура (от холодного к тёплому)
       const cool = new THREE.Color(0.78, 0.84, 1.0)
       const warm = new THREE.Color(1.0, 0.93, 0.82)
       const c = cool.clone().lerp(warm, Math.pow(Math.random(), 1.6))
@@ -65,7 +63,7 @@ export default function StarsEnhanced({
       colors[i*3+1] = c.g
       colors[i*3+2] = c.b
 
-      // области, где твингкл ≈2x быстрее
+      // regions with ~2x twinkle speed
       const len = Math.sqrt(x*x + y*y + z*z) || 1.0
       const nx = x/len, ny = y/len, nz = z/len
       const gx = Math.floor((nx + 1.0) * 6.0)
@@ -103,7 +101,7 @@ export default function StarsEnhanced({
       vTw    = aTwinkle;
       vec4 mv = modelViewMatrix * vec4(position, 1.0);
       vDist = length(mv.xyz);
-      // в «быстрых» областях частота чуть выше
+      // twinkle (faster in "fast" regions)
       float twinkle = 1.0 + 0.14 * sin(uTime * (1.6 * vTw + aPhase*2.2) + aPhase*6.28318);
       gl_PointSize = aSize * twinkle * 120.0 / vDist;
       gl_Position = projectionMatrix * mv;
@@ -123,51 +121,62 @@ export default function StarsEnhanced({
     }
     float hash(float x){ return fract(sin(x) * 43758.5453123); }
 
-    // «бриллиантовый» блеск: ромб + 4 луча
+    // Diamond-like glint (optional subtle)
     float diamond(vec2 uv){
       vec2 p = (uv - 0.5);
-      float d1 = abs(p.x) + abs(p.y);                    // ромб (L1-норма)
-      float core = smoothstep(0.85, 0.0, d1 * 2.0);      // ядро ромба
+      float d1 = abs(p.x) + abs(p.y);
+      float core = smoothstep(0.85, 0.0, d1 * 2.0);
       vec2 q = p * 2.0;
       float r = length(q) + 1e-5;
       float ang = atan(q.y, q.x);
-      float spikes = pow(abs(sin(ang * 2.0)), 12.0) * smoothstep(0.8, 0.0, r); // 4 луча
+      float spikes = pow(abs(sin(ang * 2.0)), 12.0) * smoothstep(0.8, 0.0, r);
       return clamp(core + spikes*0.8, 0.0, 1.0);
     }
 
     void main(){
-      // ХАОТИЧЕСКОЕ МЕДЛЕННОЕ ЗАТУХАНИЕ С БЛЕСКОМ
-      // Больше частоты: короче период, длиннее "off" для медленного ухода
+      // Timing per star:
+      // Fade-out: 1.5s — Off: 1.5s — Fade-in: 0.2s — On: random (3..8s) to keep chaos
       float r1 = hash(vPhase * 123.45);
       float r2 = hash(vPhase * 987.65);
-      float r3 = hash(vPhase * 456.78);
-      float period = mix(5.0, 10.0, r1);      // чаще запускаются
-      float offDur = mix(1.6, 3.2, r2);       // дольше гаснут (медленнее)
-      float start  = mix(0.0, period - offDur, r3);
-      float lt = mod(uTime, period);
-      float edge = 0.45;                      // мягкие края
-      float fadeOut = smoothstep(start, start + edge, lt);
-      float fadeIn  = 1.0 - smoothstep(start + offDur - edge, start + offDur, lt);
+      float onDur = mix(3.0, 8.0, r1);
+      float fadeOutDur = 1.5;
+      float offDur = 1.5;
+      float fadeInDur = 0.2;
+      float total = fadeOutDur + offDur + fadeInDur + onDur;
+
+      // random start offset per star
+      float startOffset = r2 * total;
+      float t = mod(uTime + startOffset, total);
+
       float gate = 1.0;
-      if (lt >= start && lt <= start + offDur) { gate = min(fadeOut, fadeIn); }
+      if (t < fadeOutDur) {
+        // 1.5s slow fade to black
+        gate = 1.0 - smoothstep(0.0, fadeOutDur, t);
+      } else if (t < fadeOutDur + offDur) {
+        // 1.5s fully off
+        gate = 0.0;
+      } else if (t < fadeOutDur + offDur + fadeInDur) {
+        // quick appear
+        gate = smoothstep(0.0, fadeInDur, t - (fadeOutDur + offDur));
+      } else {
+        gate = 1.0;
+      }
 
       vec2 uv = gl_PointCoord;
       float mask = circleMask(uv);
       float core = pow(mask, 2.0);
       float halo = pow(mask, 1.25) * 0.55;
 
-      // цвет + базовая яркость
       vec3 col = mix(vColor, vec3(1.0), 0.10) * (0.7 + 0.3 * core);
       float alpha = (core + halo) * gate * uAlpha;
 
-      // БРИЛЛИАНТНЫЙ БЛЕСК — появляется при затухании
-      float glintWin = smoothstep(0.9, 0.0, gate); // чем меньше gate, тем ярче
+      // Diamond glint is strongest during fade-out & just before off
+      float fadePhase = smoothstep(1.0, 0.0, clamp(t / max(fadeOutDur, 0.0001), 0.0, 1.0));
+      float glintWin = fadePhase * (t < fadeOutDur ? 1.0 : 0.0);
       float glint = diamond(uv) * glintWin;
-      // лёгкая анимация блеска
       glint *= 0.8 + 0.2 * sin(uTime * 6.0 + vPhase * 31.4);
-
-      col += glint * 0.55;        // усиление цвета
-      alpha += glint * 0.35;      // усиление свечения
+      col += glint * 0.55;
+      alpha += glint * 0.35;
 
       if (alpha < 0.01) discard;
       gl_FragColor = vec4(col, alpha);
