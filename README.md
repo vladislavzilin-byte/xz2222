@@ -1,12 +1,11 @@
-# IZ HAIR TREND — Stars (variable sizes + fast regions)
+# IZ HAIR TREND — Stars (chaotic fade)
 
-- Black background + starry sky:
-  - variable star sizes (many small, few large, rare giants)
-  - region-based twinkle (some areas ~2x faster)
-  - subtle color temperature variation
-  - gentle partial fade, natural look
+- Black background + starry sky with:
+  - variable star sizes (many small, rare giants)
+  - regions twinkle ~2x faster
+  - per-star **chaotic full fade-outs** across the sky
 - Polymer buttons with full sweep (no spark), 30% slower
-- No center title/triangles/photo
+- No center title / triangles / photo
 - Languages: LT / EN / RU, pages: Portfolio / Shop / Training / Contacts
 
 ## Dev
