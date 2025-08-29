@@ -13,16 +13,16 @@ type Props = {
 }
 
 export default function StarsEnhanced({
-  count = 10000,        // больше звёзд
+  count = 8000,        // больше звёзд
   radius = 220,
   intensity = 1.1,
   sizeMin = 0.55,
   sizeMax = 5.8,
   giantChance = 0.045,
-  fastRatio = 1.9
+  fastRatio = 0.1
 }: Props) {
   const uniforms = React.useMemo(() => ({
-    uTime:  { value: 0 },
+    uTime:  { value: 0.99 },
     uAlpha: { value: intensity }
   }), [intensity])
 
