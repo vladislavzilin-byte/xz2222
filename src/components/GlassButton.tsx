@@ -22,7 +22,7 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
         animate={{ x: ['-120%', '110%'] }}
         transition={{ duration: 6.12, repeat: Infinity, ease: 'linear' }}
       />
-      <motion.span className="relative z-10" animate={flying ? { x: 600, opacity: 0.3, rotate: -8 } : { x: 0, opacity: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 240, damping: 16 }}>{label}</motion.span>
+      <motion.span className="relative z-10" animate={flying ? { x: 600, opacity: 0.3, rotate: -8 } : { x: 0, opacity: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 180, damping: 16 }}>{label}</motion.span>
     </motion.button>
   )
 }
