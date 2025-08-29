@@ -17,9 +17,9 @@ export default function StarsEnhanced({
   radius = 220,
   intensity = 1.1,
   sizeMin = 0.55,
-  sizeMax = 6.8,
+  sizeMax = 5.8,
   giantChance = 0.045,
-  fastRatio = 0.5
+  fastRatio = 1.9
 }: Props) {
   const uniforms = React.useMemo(() => ({
     uTime:  { value: 0 },
