@@ -3,7 +3,7 @@ import { auth, googleProvider, appleProvider } from '../auth/firebase'
 import { signInWithPopup, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { AuthContext } from '../auth/AuthContext'
 export default function MiniAuthPanel() {
-  const { user, isAdmin } = React.useContext(AuthContext)
+  const { user } = React.useContext(AuthContext)
   const [open, setOpen] = React.useState(true)
   const [email, setEmail] = React.useState('')
   const [pass, setPass] = React.useState('')
@@ -28,17 +28,15 @@ export default function MiniAuthPanel() {
           <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email" className="h-10 w-full rounded-lg bg-white/10 border border-white/20 px-3 text-sm outline-none focus:border-white/40" />
           <input value={pass} onChange={e=>setPass(e.target.value)} type="password" placeholder="Password" className="h-10 w-full rounded-lg bg-white/10 border border-white/20 px-3 text-sm outline-none focus:border-white/40" />
           <button onClick={doEmail} disabled={busy} className="h-10 w-full rounded-lg bg-white text-black text-sm font-medium hover:opacity-90 disabled:opacity-60">{busy ? 'Please wait…' : 'Login'}</button>
-          <div className="text-xs text-white/60">Need an account? <a href="/auth" className="underline">Create here</a></div>
         </div>
         {err && <div className="text-xs text-red-400">{err}</div>}
       </div>) : (<div className="space-y-3">
-        <div className="text-sm text-white/70">Signed in as</div>
+        <div className="text-sm text-white/70">Signed in</div>
         <div className="rounded-xl bg-white/5 border border-white/10 p-3">
           <div className="font-medium">{user.displayName || 'User'}</div>
           <div className="text-xs text-white/60">{user.email}</div>
         </div>
         <div className="flex items-center justify-between gap-2">
-          {isAdmin ? (<a href="/admin" className="px-3 h-9 rounded-lg bg-white/10 border border-white/20 text-sm flex items-center hover:bg-white/15">Admin</a>) : <span className="text-xs text-white/50">No admin access</span>}
           <button onClick={()=>signOut(auth)} className="h-9 px-3 rounded-lg bg-white text-black text-sm font-medium hover:opacity-90">Logout</button>
         </div>
       </div>)}
