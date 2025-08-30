@@ -1,7 +1,7 @@
 {
-  "name": "iz-hairtrend-full-with-mini-auth",
+  "name": "iz-hairtrend",
   "private": true,
-  "version": "2.1.0",
+  "version": "2.2.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -21,7 +21,8 @@
     "firebase": "^10.14.0",
     "react-hook-form": "^7.53.0",
     "zod": "^3.23.8",
-    "@hookform/resolvers": "^3.9.0"
+    "@hookform/resolvers": "^3.9.0",
+    "firebase-admin": "^12.5.0"
   },
   "devDependencies": {
     "typescript": "^5.5.4",
