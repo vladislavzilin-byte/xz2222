@@ -18,7 +18,7 @@ import ProtectedRoute from './routes/ProtectedRoute'
 type Lang = 'lt' | 'en' | 'ru'
 const palette = { bg:'#000000' }
 const i18n: Record<Lang, any> = {
-  lt:{ hero:{sub:'Ateitirettertertresistema: 3D gylis, švelnūs efektai ir polimero mygtukai.'}, buttons:['Portfelis','Parduotuvė','Mokymai','Kontaktai','Prisijungti'] },
+  lt:{ hero:{sub:'Ateitirettertertr5454654esistema: 3D gylis, švelnūs efektai ir polimero mygtukai.'}, buttons:['Portfelis','Parduotuvė','Mokymai','Kontaktai','Prisijungti'] },
   en:{ hero:{sub:'Futur543543543435m: depth, soft motion and polymer UI.'}, buttons:['Portfolio','Shop','Training','Contacts','Sign in'] },
   ru:{ hero:{sub:'Систеterterertterо: глубина, мягкие анимации и полимерные кнопки.'}, buttons:['Портфолио','Магазин','Обучение','Контакты','Войти'] },
 }
