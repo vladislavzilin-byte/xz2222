@@ -1,3 +1,4 @@
+// src/App.tsx
 import React, { Suspense, useEffect, useState } from 'react'
 import { Routes, Route, useLocation, Link } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
@@ -21,9 +22,18 @@ type Lang = 'lt' | 'en' | 'ru'
 const palette = { bg: '#000000' }
 
 const i18n: Record<Lang, any> = {
-  lt: { hero: { sub: 'Ateities grožio sistema: 3D gylis, švelnūs efektai ir polimero mygtukai.' }, buttons: ['Portfelis', 'Parduotuvė', 'Mokymai', 'Kontaktai', 'Prisijungti'] },
-  en: { hero: { sub: 'Future-ready beauty system: depth, soft motion and polymer UI.' }, buttons: ['Portfolio', 'Shop', 'Training', 'Contacts', 'Sign in'] },
-  ru: { hero: { sub: 'Система будущего: глубина, мягкие анимации и полимерные кнопки.' }, buttons: ['Портфолио', 'Магазин', 'Обучение', 'Контакты', 'Войти'] },
+  lt: {
+    hero: { sub: 'Ateities grožio sistema: 3D gylis, švelnūs efektai ir polimero mygtukai.' },
+    buttons: ['Portfelis', 'Parduotuvė', 'Mokymai', 'Kontaktai', 'Prisijungti'],
+  },
+  en: {
+    hero: { sub: 'Future-ready beauty system: depth, soft motion and polymer UI.' },
+    buttons: ['Portfolio', 'Shop', 'Training', 'Contacts', 'Sign in'],
+  },
+  ru: {
+    hero: { sub: 'Система будущего: глубина, мягкие анимации и полимерные кнопки.' },
+    buttons: ['Портфолио', 'Магазин', 'Обучение', 'Контакты', 'Войти'],
+  },
 }
 
 function Language({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
@@ -61,7 +71,7 @@ function Scene() {
   )
 }
 
-/** ⬇️ Исправлено: теперь Home принимает и lang, и setLang */
+/** Home теперь принимает и lang, и setLang */
 function Home({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
   const copy = i18n[lang]
   return (
@@ -77,7 +87,7 @@ function Home({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
         </Canvas>
       </div>
 
-      {/* Top-right: Languages + MiniAuth */}
+      {/* Top-right: языки + мини-логин */}
       <div className="fixed top-4 right-4 z-50 flex items-start gap-3">
         <Language lang={lang} setLang={setLang} />
         <MiniAuthPanel />
@@ -86,6 +96,7 @@ function Home({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6">
         <img src="/iz-logo.svg" className="w-44 md:w-56 mb-4 opacity-90" alt="logo" />
         <p className="max-w-2xl text-white/70 mb-8">{copy.hero.sub}</p>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <GlassButton label={copy.buttons[0]} to="/portfolio" />
           <GlassButton label={copy.buttons[1]} to="/shop" delay={0.05} />
@@ -95,9 +106,15 @@ function Home({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
             <GlassButton label={copy.buttons[4]} to="/auth" delay={0.2} />
           </div>
         </div>
+
         <div className="mt-10 text-sm text-white/60">
           izhairtrend.shop · support@izhairtrend.shop ·{' '}
-          <a href="https://www.instagram.com/irinazilina.hairtrend" target="_blank" className="underline">
+          <a
+            href="https://www.instagram.com/irinazilina.hairtrend"
+            target="_blank"
+            className="underline"
+            rel="noreferrer"
+          >
             Instagram
           </a>
         </div>
@@ -120,14 +137,21 @@ export default function App() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        {/* ⬇️ Исправлено: передаём setLang в Home */}
+        {/* Передаём setLang в Home */}
         <Route path="/" element={<Home lang={lang} setLang={setLang} />} />
         <Route path="/portfolio" element={<PageWrap><Portfolio /></PageWrap>} />
         <Route path="/shop" element={<PageWrap><Shop /></PageWrap>} />
         <Route path="/training" element={<PageWrap><Training /></PageWrap>} />
         <Route path="/contacts" element={<PageWrap><Contacts /></PageWrap>} />
         <Route path="/auth" element={<PageWrap><AuthPage /></PageWrap>} />
-        <Route path="/admin" element={<ProtectedRoute requireAdmin><PageWrap><AdminPage /></PageWrap></ProtectedRoute>} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute requireAdmin>
+              <PageWrap><AdminPage /></PageWrap>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </AnimatePresence>
   )
@@ -135,9 +159,17 @@ export default function App() {
 
 function PageWrap({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }} transition={{ duration: 0.45 }}>
+    <motion.div
+      initial={{ opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -40 }}
+      transition={{ duration: 0.45 }}
+    >
       <header className="fixed top-3 left-4 z-50">
-        <Link to="/" className="px-3 py-2 rounded-xl bg-white/10 border border-white/15 backdrop-blur-xl text-white/80 hover:text-white">
+        <Link
+          to="/"
+          className="px-3 py-2 rounded-xl bg-white/10 border border-white/15 backdrop-blur-xl text-white/80 hover:text-white"
+        >
           ← Home
         </Link>
       </header>
