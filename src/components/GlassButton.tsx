@@ -52,7 +52,7 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
           width: '180%',
           filter: 'blur(1.2px)',
           background:
-            'linear-gradient(270deg,\
+            'linear-gradient(90deg,\
               rgba(0,0,0,0) 0%,\
               rgba(190,230,255,0.08) 30%,\
               rgba(255,255,245,0.22) 50%,\
