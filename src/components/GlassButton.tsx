@@ -50,7 +50,7 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
         className="absolute inset-y-[20%] right-0 rounded-2xl pointer-events-none mix-blend-screen"
         style={{
           width: '140%',
-          filter: 'blur(0.8px)',
+          filter: 'blur(1.2px)',
           background:
             'linear-gradient(90deg,\
               rgba(0,0,0,0) 0%,\
