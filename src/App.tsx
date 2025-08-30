@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { Suspense, useEffect, useState } from 'react'
 import { Routes, Route, useLocation, Link } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
@@ -7,16 +6,14 @@ import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocess
 import { motion, AnimatePresence } from 'framer-motion'
 
 import GlassButton from './components/GlassButton'
-import MiniAuthPanel from './components/MiniAuthPanel'
 import StarsEnhanced from './components/StarsEnhanced'
-
 import Portfolio from './pages/Portfolio'
 import Shop from './pages/Shop'
 import Training from './pages/Training'
 import Contacts from './pages/Contacts'
-import AuthPage from './pages/Auth'
-import AdminPage from './pages/Admin'
-import ProtectedRoute from './routes/ProtectedRoute'
+
+// ⬇️ мини-панель логина (должен быть файл src/components/MiniAuthPanel.tsx)
+import MiniAuthPanel from './components/MiniAuthPanel'
 
 type Lang = 'lt' | 'en' | 'ru'
 const palette = { bg: '#000000' }
@@ -24,15 +21,15 @@ const palette = { bg: '#000000' }
 const i18n: Record<Lang, any> = {
   lt: {
     hero: { sub: 'Ateities grožio sistema: 3D gylis, švelnūs efektai ir polimero mygtukai.' },
-    buttons: ['Portfelis', 'Parduotuvė', 'Mokymai', 'Kontaktai', 'Prisijungti'],
+    buttons: ['Portfelis', 'Parduotuvė', 'Mokymai', 'Kontaktai'],
   },
   en: {
     hero: { sub: 'Future-ready beauty system: depth, soft motion and polymer UI.' },
-    buttons: ['Portfolio', 'Shop', 'Training', 'Contacts', 'Sign in'],
+    buttons: ['Portfolio', 'Shop', 'Training', 'Contacts'],
   },
   ru: {
     hero: { sub: 'Система будущего: глубина, мягкие анимации и полимерные кнопки.' },
-    buttons: ['Портфолио', 'Магазин', 'Обучение', 'Контакты', 'Войти'],
+    buttons: ['Портфолио', 'Магазин', 'Обучение', 'Контакты'],
   },
 }
 
@@ -58,7 +55,7 @@ function Language({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void })
 function Scene() {
   return (
     <>
-      <StarsEnhanced />
+      <StarsEnhanced count={7000} radius={200} intensity={1.1} />
       <ambientLight intensity={0.35} />
       <directionalLight intensity={0.8} position={[4, 6, 6]} />
       <Environment preset="city" />
@@ -71,8 +68,7 @@ function Scene() {
   )
 }
 
-/** Home теперь принимает и lang, и setLang */
-function Home({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
+function Home({ lang }: { lang: Lang }) {
   const copy = i18n[lang]
   return (
     <div className="relative min-h-screen">
@@ -87,9 +83,10 @@ function Home({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
         </Canvas>
       </div>
 
-      {/* Top-right: языки + мини-логин */}
+      {/* ⬇️ справа сверху: языки + мини-логин */}
       <div className="fixed top-4 right-4 z-50 flex items-start gap-3">
-        <Language lang={lang} setLang={setLang} />
+        <Language lang={lang} setLang={() => {}} />
+        {/* setLang здесь не нужен внутри Home, поэтому передаём пустую функцию */}
         <MiniAuthPanel />
       </div>
 
@@ -102,19 +99,11 @@ function Home({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
           <GlassButton label={copy.buttons[1]} to="/shop" delay={0.05} />
           <GlassButton label={copy.buttons[2]} to="/training" delay={0.1} />
           <GlassButton label={copy.buttons[3]} to="/contacts" delay={0.15} />
-          <div className="sm:col-span-2 flex justify-center">
-            <GlassButton label={copy.buttons[4]} to="/auth" delay={0.2} />
-          </div>
         </div>
 
         <div className="mt-10 text-sm text-white/60">
           izhairtrend.shop · support@izhairtrend.shop ·{' '}
-          <a
-            href="https://www.instagram.com/irinazilina.hairtrend"
-            target="_blank"
-            className="underline"
-            rel="noreferrer"
-          >
+          <a href="https://www.instagram.com/irinazilina.hairtrend" target="_blank" className="underline" rel="noreferrer">
             Instagram
           </a>
         </div>
@@ -135,25 +124,23 @@ export default function App() {
   }, [])
 
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        {/* Передаём setLang в Home */}
-        <Route path="/" element={<Home lang={lang} setLang={setLang} />} />
-        <Route path="/portfolio" element={<PageWrap><Portfolio /></PageWrap>} />
-        <Route path="/shop" element={<PageWrap><Shop /></PageWrap>} />
-        <Route path="/training" element={<PageWrap><Training /></PageWrap>} />
-        <Route path="/contacts" element={<PageWrap><Contacts /></PageWrap>} />
-        <Route path="/auth" element={<PageWrap><AuthPage /></PageWrap>} />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute requireAdmin>
-              <PageWrap><AdminPage /></PageWrap>
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </AnimatePresence>
+    <>
+      {/* ⬆️ глобальный переключатель языков + мини-логин в шапке */}
+      <div className="fixed top-4 right-4 z-50 flex items-start gap-3">
+        <Language lang={lang} setLang={setLang} />
+        <MiniAuthPanel />
+      </div>
+
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home lang={lang} />} />
+          <Route path="/portfolio" element={<PageWrap><Portfolio /></PageWrap>} />
+          <Route path="/shop" element={<PageWrap><Shop /></PageWrap>} />
+          <Route path="/training" element={<PageWrap><Training /></PageWrap>} />
+          <Route path="/contacts" element={<PageWrap><Contacts /></PageWrap>} />
+        </Routes>
+      </AnimatePresence>
+    </>
   )
 }
 
