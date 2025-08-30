@@ -49,7 +49,7 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
       <motion.span
         className="absolute inset-y-[20%] right-0 rounded-2xl pointer-events-none mix-blend-screen"
         style={{
-          width: '140%',
+          width: '180%',
           filter: 'blur(1.2px)',
           background:
             'linear-gradient(90deg,\
@@ -59,15 +59,15 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
               rgba(215,205,255,0.14) 70%,\
               rgba(0,0,0,0) 100%)',
         }}
-        animate={{ x: ['110%', '-120%'], opacity: [0.75, 1, 0.75] }}
+        animate={{ x: ['2000%', '-120%'], opacity: [1, 1.5, 1] }}
         transition={{ duration: 6.24, repeat: Infinity, ease: 'linear' }}
       />
 
       {/* Label (flies right on click) */}
       <motion.span
         className="relative z-10"
-        animate={flying ? { x: 600, opacity: 0.3, rotate: -8 } : { x: 0, opacity: 1, rotate: 0 }}
-        transition={{ type: 'spring', stiffness: 120, damping: 16 }}
+        animate={flying ? { x: 600, opacity: 0.8, rotate: 8 } : { x: 0, opacity: 2, rotate: 0 }}
+        transition={{ type: 'spring', stiffness: 120, damping: 20 }}
       >
         {label}
       </motion.span>
