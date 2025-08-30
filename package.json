@@ -1,7 +1,7 @@
 {
-  "name": "iz-hairtrend-stars",
+  "name": "iz-hairtrend-full-with-mini-auth",
   "private": true,
-  "version": "1.4.0",
+  "version": "2.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,7 +17,11 @@
     "@react-three/drei": "^9.113.2",
     "@react-three/postprocessing": "^2.16.5",
     "postprocessing": "^6.35.4",
-    "framer-motion": "^11.2.12"
+    "framer-motion": "^11.2.12",
+    "firebase": "^10.14.0",
+    "react-hook-form": "^7.53.0",
+    "zod": "^3.23.8",
+    "@hookform/resolvers": "^3.9.0"
   },
   "devDependencies": {
     "typescript": "^5.5.4",
@@ -27,6 +31,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "tailwindcss": "^3.4.10",
     "postcss": "^8.4.45",
-    "autoprefixer": "^10.4.20"
+    "autoprefixer": "^10.4.20",
+    "@vercel/node": "^3.2.14"
   }
 }

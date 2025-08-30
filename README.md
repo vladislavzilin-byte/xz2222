@@ -1,16 +1,14 @@
-# IZ HAIR TREND — Stars (chaotic fade)
+# IZ HAIR TREND — Full App + MiniAuth on Home
+- Mini login panel on the top-right of Home (Google/Apple + email sign-in)
+- Stars with 1.5s fade-out → 1.5s off → quick appear + diamond glint
+- GlassButton (your diamond sweep, full-height blur)
+- Auth pages, Admin page, Vercel function to grant admin
 
-- Black background + starry sky with:
-  - variable star sizes (many small, rare giants)
-  - regions twinkle ~2x faster
-  - per-star **chaotic full fade-outs** across the sky
-- Polymer buttons with full sweep (no spark), 30% slower
-- No center title / triangles / photo
-- Languages: LT / EN / RU, pages: Portfolio / Shop / Training / Contacts
-
-## Dev
+Run:
 npm i
 npm run dev
 
-## Build
+Build:
 npm run build
+
+Vercel env: fill `.env.example` keys into Vercel Environment Variables.
