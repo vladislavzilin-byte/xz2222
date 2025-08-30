@@ -59,7 +59,7 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
               rgba(215,205,255,0.14) 70%,\
               rgba(0,0,0,0) 100%)',
         }}
-        animate={{ x: ['-2000%', '120%'], opacity: [1, 1.5, 1] }}
+        animate={{ x: ['-200%', '120%'], opacity: [1, 1.5, 1] }}
         transition={{ duration: 6.24, repeat: Infinity, ease: 'linear' }}
       />
 
