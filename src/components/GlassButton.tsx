@@ -13,21 +13,20 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
       initial={{ opacity: 0, y: 20, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       
-            {/* Shimmering DIAMOND sweep — right ➜ left, light blur, no solid white */}
+       {/* Main diamond sweep — R ➜ L, full height, softer brightness */}
       <motion.span
         className="absolute inset-y-0 right-0 rounded-2xl pointer-events-none mix-blend-screen"
         style={{
           width: '160%',
           filter: 'blur(1.2px)',
           background:
-            // icy blue → soft pearl → lilac → back to ice; all semi-transparent
             'linear-gradient(90deg,\
               rgba(0,0,0,0) 0%,\
-              rgba(176,216,255,0.10) 18%,\
-              rgba(196,228,255,0.22) 30%,\
-              rgba(255,248,236,0.36) 42%,\
-              rgba(231,214,255,0.26) 54%,\
-              rgba(176,216,255,0.12) 68%,\
+              rgba(176,216,255,0.06) 18%,\
+              rgba(196,228,255,0.14) 30%,\
+              rgba(255,248,236,0.22) 42%,\
+              rgba(231,214,255,0.16) 54%,\
+              rgba(176,216,255,0.08) 68%,\
               rgba(0,0,0,0) 100%)',
         }}
       transition={{ duration: 0.6, delay }}
