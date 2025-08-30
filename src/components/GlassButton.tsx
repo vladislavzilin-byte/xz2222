@@ -23,24 +23,6 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
       {/* glass base */}
       <span className="absolute inset-0 bg-gradient-to-br from-white/12 to-white/5" />
       <span className="absolute inset-0 rounded-2xl ring-1 ring-white/20" />
-
-      {/* Shimmering DIAMOND sweep — right ➜ left, light blur, no solid white */}
-      <motion.span
-        className="absolute inset-y-0 left-0 rounded-2xl pointer-events-none mix-blend-screen"
-        style={{
-          width: '180%',
-          filter: 'blur(1.2px)',
-          background:
-            // icy blue → soft pearl → lilac → back to ice; all semi-transparent
-            'linear-gradient(270deg,\
-              rgba(0,0,0,0) 0%,\
-              rgba(176,216,255,0.10) 18%,\
-              rgba(196,228,255,0.22) 30%,\
-              rgba(255,248,236,0.36) 42%,\
-              rgba(231,214,255,0.26) 54%,\
-              rgba(176,216,255,0.12) 68%,\
-              rgba(0,0,0,0) 100%)',
-        }}
         animate={{ x: ['-130%', '120%'], opacity: [0.9, 1, 0.9] }}
         transition={{ duration: 6.24, repeat: Infinity, ease: 'linear' }} // same brightness/speed pattern, RTL
       />
