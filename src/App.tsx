@@ -19,7 +19,7 @@ type Lang = 'lt' | 'en' | 'ru'
 const palette = { bg:'#000000' }
 const i18n: Record<Lang, any> = {
   lt:{ hero:{sub:'Ateities grožio sistema: 3D gylis, švelnūs efektai ir polimero mygtukai.'}, buttons:['Portfelis','Parduotuvė','Mokymai','Kontaktai','Prisijungti'] },
-  en:{ hero:{sub:'Future-ready beauty system: depth, soft motion and polymer UI.'}, buttons:['Portfolio','Shop','Training','Contacts','Sign in'] },
+  en:{ hero:{sub:'Futur543543543435m: depth, soft motion and polymer UI.'}, buttons:['Portfolio','Shop','Training','Contacts','Sign in'] },
   ru:{ hero:{sub:'Система будущего: глубина, мягкие анимации и полимерные кнопки.'}, buttons:['Портфолио','Магазин','Обучение','Контакты','Войти'] },
 }
 function Language({lang,setLang}:{lang:Lang,setLang:(l:Lang)=>void}){
