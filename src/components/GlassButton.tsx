@@ -17,7 +17,7 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
         setFlying(true)
         setTimeout(() => nav(to), 420)
       }}
-      className="relative w-76 h-14 rounded-2xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-xl text-white font-medium tracking-wide"
+      className="relative w-56 h-14 rounded-2xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-xl text-white font-medium tracking-wide"
       style={{ WebkitBackdropFilter: 'blur(20px)' as any }}
     >
       {/* glass base */}
@@ -26,9 +26,9 @@ export default function GlassButton({ label, to, delay = 0 }: Props) {
 
       {/* Shimmering DIAMOND sweep — right ➜ left, light blur, no solid white */}
       <motion.span
-        className="absolute inset-y-0 right-0 rounded-2xl pointer-events-none mix-blend-screen"
+        className="absolute inset-y-0 right-1 rounded-2xl pointer-events-none mix-blend-screen"
         style={{
-          width: '160%',
+          width: '180%',
           filter: 'blur(1.2px)',
           background:
             // icy blue → soft pearl → lilac → back to ice; all semi-transparent
