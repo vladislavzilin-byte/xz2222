@@ -52,6 +52,7 @@ function Home({lang}:{lang:Lang}){
         </ScrollControls>
       </Canvas>
     </div>
+    {/* Top-right: Languages + MiniAuth */}
     <div className='fixed top-4 right-4 z-50 flex items-start gap-3'>
       <Language lang={lang} setLang={setLang} />
       <MiniAuthPanel />
