@@ -10,7 +10,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   React.useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
       setUser(u)
-      // без custom claims (нет серверной функции)
       setIsAdmin(false)
       setLoading(false)
     })
