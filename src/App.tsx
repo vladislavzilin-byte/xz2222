@@ -24,6 +24,13 @@ function Language({lang,setLang}:{lang:Lang,setLang:(l:Lang)=>void}){
     {langs.map(L=>(<button key={L} onClick={()=>setLang(L)} className={`text-sm font-medium tracking-wide px-2 py-1 rounded-lg ${lang===L?'bg-white/15 text-white':'text-white/80 hover:text-white'}`}>{L.toUpperCase()}</button>))}
   </div>)
 }
+}
+function login({lang,setLang}:{lang:Lang,setLang:(l:Lang)=>void}){
+  const login:Login[] = ['login','signup']
+  return(<div className='fixed top-4 left-4 z-50 backdrop-blur-xl bg-white/10 border border-white/10 rounded-2xl px-3 py-2 flex gap-2 shadow-lg'>
+    {langs.map(L=>(<button key={L} onClick={()=>setLang(L)} className={`text-sm font-medium tracking-wide px-2 py-1 rounded-lg ${lang===L?'bg-white/15 text-white':'text-white/80 hover:text-white'}`}>{L.toUpperCase()}</button>))}
+  </div>)
+}
 function Scene(){
   return(<>
     <StarsEnhanced count={12000} radius={200} intensity={1.1} />
