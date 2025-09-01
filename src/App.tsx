@@ -26,7 +26,7 @@ function Language({lang,setLang}:{lang:Lang,setLang:(l:Lang)=>void}){
 }
 function Scene(){
   return(<>
-    <StarsEnhanced count={7000} radius={200} intensity={1.1} />
+    <StarsEnhanced count={12000} radius={200} intensity={1.1} />
     <ambientLight intensity={0.35}/>
     <directionalLight intensity={0.8} position={[4,6,6]}/>
     <Environment preset='city'/>
