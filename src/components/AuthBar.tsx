@@ -1,13 +1,6 @@
-
 import React from 'react'
 import AuthModal from './AuthModal'
-export default function AuthBar(){
-  const [open, setOpen] = React.useState<null | 'login' | 'signup'>(null)
-  return (
-    <div className="fixed top-4 left-4 z-50 flex gap-2 bg-white/10 border border-white/15 backdrop-blur-xl rounded-2xl p-2">
-      <button onClick={()=>setOpen('login')} className="px-3 py-1.5 rounded-lg text-sm bg-white/15 hover:bg-white/25 text-white">Login</button>
-      <button onClick={()=>setOpen('signup')} className="px-3 py-1.5 rounded-lg text-sm bg-white/15 hover:bg-white/25 text-white">Sign up</button>
-      {open && <AuthModal mode={open} onClose={()=>setOpen(null)} />}
-    </div>
-  )
-}
+import { AuthContext } from '../store/AuthContext'
+import { Link } from 'react-router-dom'
+import * as LA from '../store/localAuth'
+export default function AuthBar(){const[open,setOpen]=React.useState<null|'login'|'signup'>(null);const{user,refresh}=React.useContext(AuthContext);return <div className='fixed top-4 left-4 z-50 flex items-center gap-2 bg-white/10 border border-white/15 backdrop-blur-xl rounded-2xl p-2'>{!user?(<><button onClick={()=>setOpen('login')} className='px-3 py-1.5 rounded-lg text-sm bg-white/15 hover:bg-white/25'>Login</button><button onClick={()=>setOpen('signup')} className='px-3 py-1.5 rounded-lg text-sm bg-white/15 hover:bg-white/25'>Sign up</button></>):(<><Link to='/profile' className='px-3 py-1.5 rounded-lg text-sm bg-white/15 hover:bg-white/25'>Profile</Link>{(user.role||'user')==='admin'&&<Link to='/admin' className='px-3 py-1.5 rounded-lg text-sm bg-white/15 hover:bg-white/25'>Admin</Link>}<button onClick={()=>{LA.signOut();refresh()}} className='px-3 py-1.5 rounded-lg text-sm bg-white/15 hover:bg-white/25'>Logout</button></>)}{open&&<AuthModal mode={open} onClose={()=>{setOpen(null);refresh()}}/>}</div>}

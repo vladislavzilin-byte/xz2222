@@ -1,7 +1,7 @@
 {
-  "name": "iz-hairtrend-stars",
+  "name": "iz-local-auth-admin",
+  "version": "1.0.0",
   "private": true,
-  "version": "1.4.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,11 +12,6 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
-    "three": "^0.160.0",
-    "@react-three/fiber": "^8.16.1",
-    "@react-three/drei": "^9.113.2",
-    "@react-three/postprocessing": "^2.16.5",
-    "postprocessing": "^6.35.4",
     "framer-motion": "^11.2.12"
   },
   "devDependencies": {
